@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using TaskMonitor.Controls;
@@ -174,7 +175,21 @@ namespace TaskMonitor
 
         async protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            AccessStatus = await apps.GetAccessStatus();
+            try
+            {
+                // RnD
+                AccessStatus = await apps.GetAccessStatus();
+                //AccessStatus = DiagnosticAccessStatus.Limited;
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                //RnD
+                //AccessStatus = DiagnosticAccessStatus.Limited;            
+            }
+
             processListView.ItemsSource = processes;
             appListView.ItemsSource = apps;
         }

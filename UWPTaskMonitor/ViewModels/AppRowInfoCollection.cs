@@ -35,8 +35,18 @@ namespace TaskMonitor.ViewModels
         async public Task<DiagnosticAccessStatus> GetAccessStatus()
         {
             // Request user consent to use the diagnostic APIs.
+            //try
+            //{
+             
             DiagnosticAccessStatus accessStatus = await AppDiagnosticInfo.RequestAccessAsync();
+
             return accessStatus;
+            //}
+            //catch (Exception ex)
+            //{
+            //    Debug.WriteLine("[ex] GetAccessStatus exeption :"  + ex.Message);
+            //    return default;
+            //}
         }
     
         #endregion
@@ -86,7 +96,17 @@ namespace TaskMonitor.ViewModels
 
                                 // Get the total private commit usage of all processes for this app.
                                 ulong totalProcessPrivateCommit = 0;
-                                IList<ProcessDiagnosticInfo> processes = group.GetProcessDiagnosticInfos();
+                                IList<ProcessDiagnosticInfo> processes = null;
+                                try
+                                {
+                                    processes = group.GetProcessDiagnosticInfos();
+                                }
+                                catch (Exception ex)
+                                {
+                                    Debug.WriteLine("[ex] GetProcessDiagnosticInfo error:" + ex.Message);
+                                }
+
+
                                 if (processes != null)
                                 {
                                     foreach (ProcessDiagnosticInfo process in processes)

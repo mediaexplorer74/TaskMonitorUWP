@@ -19,7 +19,7 @@ namespace TaskMonitor
         #region Init
 
         // TODO Needs a valid Mobile Center token.
-        private const string MOBILE_CENTER_TOKEN = "<your Mobile Center ID>";
+        //private const string MOBILE_CENTER_TOKEN = "<your Mobile Center ID>";
 
         public App()
         {
